@@ -1,5 +1,12 @@
 window.onload = includeHTML;
 
+function renderShop() {
+    let orderedItems = document.getElementById('orderedItems');
+
+    if (orderedItems) {
+        orderedItems.innerHTML = 'Der Einkaufswagen ist leer';
+    }
+}
 
 function login() {
     let username = document.getElementById('username').value;

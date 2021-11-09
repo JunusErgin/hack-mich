@@ -169,6 +169,18 @@ input {
     padding: 0px 10px;
 }
 
+.shoppingCart {
+    background-color: white;
+    padding: 20px;
+    min-height: 30vh;
+    position: absolute;
+    right: 0px;
+    top: 128px;
+    height: calc(100vh - 168px);
+    width: 20%;
+    box-shadow: -3px 16px 11px rgb(0 0 0 / 10%);
+}
+
 .blurred {
     filter: blur(3px);
     -webkit-touch-callout: none;

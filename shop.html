@@ -8,6 +8,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
 </head>
 
 <body>
@@ -19,9 +21,29 @@
         <p>
             In dieser Aufgabe musst du einen fiktiven Online-Shop manipulieren. Du kannst verschiedene Waren in einen Einkaufswagen hinzufügen. Das Ziel ist es, die Waren kostenlos zu erhalten. Wenn du anschließend auf "Bestellen" klickst erwartet dich eine Überraschung.
         </p>
+
+        <a class="shopping-item" onclick="addToCart('Monitor', 298.99)">
+            <h2>Computer Monitor (Curved)</h2>
+            <p>Der beste Monitor für Programmierer</p>
+            <div class="pretitle">298,99 €</div>
+        </a>
+
+        <a class="shopping-item" onclick="addToCart('Gaming Maus', 59.48)">
+            <h2>Gaming Maus</h2>
+            <p>Ein Must-Have für alle Gamer</p>
+            <div class="pretitle">59,48 €</div>
+        </a>
+
+
+
+        <a class="shopping-item" onclick="addToCart('Gaming Headset', 89.99)">
+            <h2>Gaming Headset</h2>
+            <p>Spreche in brillianter Qualität mit deinen Freunden</p>
+            <div class="pretitle">89,99 €</div>
+        </a>
     </div>
 
-    <div class="shoppingCart">
+    <div class="shoppingCart hide-mobile" id="shoppingCartContainer">
         <div class="center">
             <h3>Warenkorb</h3>
         </div>
@@ -31,10 +53,13 @@
         </div>
 
         <div class="center">
-            <button class="button button-orange">Bestellen</button>
+            <button class="button button-orange" onclick="checkoutCart()">Bestellen</button>
         </div>
     </div>
 
+    <div class="center">
+        <button class="button button-orange shopping-button-mobile" onclick="checkoutCart()">Bestellen</button>
+    </div>
 
     <div w3-include-html="templates/footer.html"></div>
 

@@ -1,12 +1,20 @@
-window.onload = includeHTML;
+window.onload = function() {
+    includeHTML();
+    renderCart();
+};
 
-function renderShop() {
-    let orderedItems = document.getElementById('orderedItems');
+let shoppingCart = [];
 
-    if (orderedItems) {
-        orderedItems.innerHTML = 'Der Einkaufswagen ist leer';
+window.onscroll = function() {
+    let shoppingCartContainer = document.getElementById('shoppingCartContainer');
+    console.log(window.scrollY);
+    if (window.scrollY < 128) {
+        shoppingCartContainer.style.top = (128 - window.scrollY) + 'px';
+    } else {
+        shoppingCartContainer.style.top = '0px';
     }
-}
+};
+
 
 function login() {
     let username = document.getElementById('username').value;
@@ -20,6 +28,49 @@ function login() {
 
 }
 
+function addToCart(item, price) {
+    shoppingCart.push({ amount: 1, item: item, price: price });
+    renderCart();
+}
+
+function renderCart() {
+    let orderedItems = document.getElementById('orderedItems');
+    orderedItems.innerHTML = '';
+    let sum = 0;
+
+    if (shoppingCart.length == 0) {
+        orderedItems.innerHTML = '<div class="mb-8">Der Einkaufswagen ist leer</div>';
+    }
+
+    shoppingCart.forEach((elem) => {
+        orderedItems.innerHTML += `
+        <div class="space-between mb-8">
+            <div>${elem.amount}x ${elem.item} </div>
+            <div>${elem.price}€ </div>
+        </div>
+        `;
+
+        sum += elem.price;
+    });
+
+    orderedItems.innerHTML += `
+    <div class="space-between mb-8 mt-8">
+        <div><b>Gesamtsumme</b> </div>
+        <div>${sum.toFixed(2)}€ </div>
+    </div>
+
+    <div class="space-between mb-8">
+        <div><b>Versandkosten</b> </div>
+        <div>${4.99}€ </div>
+    </div>
+
+    <div class="space-between mb-8">
+        <div><b>Gesamtsumme</b> </div>
+        <div>${(sum + 4.99).toFixed(2)}€ </div>
+    </div>
+    `;
+}
+
 function decryptArtcle() {
     let enteredPassword = document.getElementById('password').value;
     let encryptedPassword = sha256(enteredPassword);
@@ -31,6 +82,24 @@ function decryptArtcle() {
     } else {
         alert('Versuche es erneut!');
     }
+}
+
+function checkoutCart() {
+    let sum = shoppingCart.map(i => i.price).reduce((ac, a) => ac + a, 0);
+
+    let totalPrice = sum + 4.99;
+
+    if (totalPrice <= 0) {
+        alert('Herzlichen Glückwunsch! Du hast uns gehackt!!');
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    } else {
+        alert('Die Gesamtsumme beträgt ' + totalPrice + '€');
+    }
+
 }
 
 function includeHTML() {
